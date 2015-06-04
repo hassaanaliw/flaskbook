@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Register</title>
+    <link href="./static/css/darkly.css" rel="stylesheet">
+    <link href="./static/css/forms.css" rel="stylesheet">
+
+
+</head>
+
+<body style="padding-bottom: 0px; padding-top: 0px;">
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert alert-danger alert-dismissable" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</button>
+    <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endwith %}
+
+
+<form action="" method="post" class="form-signin" name="register_form">
+    <h2 style="color:#000">Please Sign Up</h2>
+
+    <div class="control-group">
+        <div class="controls">
+            <input type="text" id="username" name="username" class="form-control" data-validate="required"
+                   placeholder="Enter Unique Username">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <input type="text" id="name" name="name" class="form-control" data-validate="required"
+                   placeholder="Enter Your Full Name">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <input type="password" id="password" name="password" class="form-control" data-validate="required,min(8)"
+                   placeholder="Enter Password">
+        </div>
+        <div style="color:#000; padding-bottom:10px"><strong>(Minimum password length is 8)</strong></div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <input type="password" id="check_password" name="check_password" class="form-control"
+                   data-validate="required,checkpassword"
+                   placeholder="Re-Enter Password">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <input type="email" id="email" name="email" class="form-control" data-validate="required,email"
+                   placeholder="Enter Email">
+        </div>
+    </div>
+    <br/>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+    <br/>
+
+</form>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="./static/js/verify.notify.min.js"></script>
+<script type="text/javascript">
+    $.verify.addRules(
+            {
+        checkpassword: function (r) {
+            var password1 = r.val();
+            var password2 = $("#password").val();
+            if(password1 !== password2)
+                return "Passwords don't Match";
+            return true;
+
+        }
+    });
+</script>
+
+</body>
+</html>

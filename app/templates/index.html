@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %}FlaskBook{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+{% block content %}
+<div class="col-lg-5">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Status Update</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" role="form" method="post" action="">
+                <div class="form-group">
+                    <div class="col-lg-10">
+							<textarea class="form-control" rows="3" id="text" name="text" required
+                                      placeholder="What's on your mind?"></textarea><br/>
+
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-9">
+                                <button type="reset" class="btn btn-default">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    {% for post in self_posts%}
+
+
+    <div class="panel panel-info">
+        <div class="panel-heading" style="overflow: auto">
+            <img src="./static/default.png" class="profile-picture">
+
+            <a href="/profile/{{post.user.username}}" class="username panel-title">@{{post.user.username}}</a>
+
+            <div class="btn-group options">
+                <a href="../delete/{{post.id}}" class="btn btn-success">Delete</a>
+            </div>
+
+        </div>
+        <div class="panel-body">
+            {{post.text|markdown}}
+        </div>
+        <div class="panel-footer">
+            {% if current_user.id|string in post.liked_by %}
+            <a id="{{post.id}}" class="unlike">
+                Unlike
+            </a><br/>
+            {%else%}
+            <a id="{{post.id}}" class="like">
+                Like
+            </a><br/>
+            {%endif%}
+            <div class="likes">{{post.likes}}</div>
+            people like this.
+
+
+        </div>
+
+    </div>
+
+    {%endfor%}
+
+</div>
+
+
+<div class="col-lg-1"></div>
+
+<div class="col-lg-5">
+
+
+    {% for post in posts%}
+    {% if post.user_id == current_user.id %}
+    <div class="panel panel-info">
+        {% else %}
+        <div class="panel panel-primary">
+            {% endif %}
+            <div class="panel-heading" style="overflow: auto">
+                <img src="./static/default.png" class="profile-picture">
+
+                <a href="/profile/{{post.user.username}}" class="username panel-title">@{{post.user.username}}</a>
+
+
+            </div>
+            <div class="panel-body">
+                {{post.text|markdown}}
+            </div>
+            <div class="panel-footer">
+                {% if current_user.id|string in post.liked_by %}
+                <a id="{{post.id}}" class="unlike">
+                    Unlike
+                </a><br/>
+                {%else%}
+                <a id="{{post.id}}" class="like">
+                    Like
+                </a><br/>
+                {%endif%}
+                <div class="likes">{{post.likes}}</div>
+                people like this.
+
+
+            </div>
+
+        </div>
+        {%endfor%}
+    </div>
+
+
+    {% endblock %}

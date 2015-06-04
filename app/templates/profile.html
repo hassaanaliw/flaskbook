@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}FlaskBook{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+{% block content %}
+
+<div class="container target">
+    <div class="row">
+
+
+        <div class="col-sm-3">
+            <img title="profile image"
+                                  class="img-circle img-responsive profile-img" src="../static/default.png">
+
+        </div>
+
+        <div class="col-sm-4"><h3 style="color:#000">@{{user.username}}</h3>
+            {% if following == True %}
+            <button type="button" class="btn btn-danger unfollow" id="{{user.id}}">Unfollow!</button>
+            {% else %}
+            <button type="button" class="btn btn-success follow" id="{{user.id}}">Follow!</button>
+            {% endif %}
+            <button type="button" class="btn btn-info">Send me a message</button>
+            <br></div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <!--left col-->
+            <ul class="list-group">
+                <li class="list-group-item text-muted" contenteditable="false">Profile</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Joined</strong></span>
+                    {{user.registered_on.strftime('%Y-%m-%d')}}
+                </li>
+
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">
+                    Name</strong></span> {{user.name}}
+                </li>
+
+            </ul>
+
+
+            <ul class="list-group">
+                <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i>
+
+                </li>
+
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Following</strong></span> {% if user.following %}{{user.following.split(',')|length - 1}}{% endif %}
+                </li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Posts</strong></span> {{posts|length}}
+                </li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong
+                        class="">Followers</strong></span> 78
+                </li>
+            </ul>
+            <div class="panel panel-default">
+                <div class="panel-heading">Social Media</div>
+                <div class="panel-body"><i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i>
+                    <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i
+                            class="fa fa-google-plus fa-2x"></i>
+
+                </div>
+            </div>
+        </div>
+        <!--/col-3-->
+        <div class="col-sm-9" contenteditable="false" style="">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{user.username}}'s Bio</div>
+                <div class="panel-body"> A long description about me.
+
+                </div>
+            </div>
+
+
+            {% for post in posts%}
+            <div class="panel panel-primary">
+                <div class="panel-heading" style="overflow: auto">
+                    <img src="../static/default.png" class="profile-picture">
+
+                    <a href="/profile/{{post.user.username}}" class="username panel-title">@{{post.user.username}}</a>
+
+                </div>
+                <div class="panel-body">
+                    {{post.text|markdown}}
+                </div>
+                <div class="panel-footer">
+                    {% if current_user.id|string in post.liked_by %}
+                    <a id="{{post.id}}" class="unlike">
+                        Unlike
+                    </a><br/>
+                    {%else%}
+                    <a id="{{post.id}}" class="like">
+                        Like
+                    </a><br/>
+                    {%endif%}
+                    <div class="likes">{{post.likes}}</div>
+                    people like this.
+
+
+                </div>
+
+            </div>
+            {%endfor%}
+
+
+        </div>
+
+
+        <div id="push"></div>
+    </div>
+    <footer id="footer">
+        <div class="row-fluid">
+
+
+            <div class="span3">
+                <span class="pull-right">©Copyright 2015 <a href="https://hassaanaliw.github.io">Hassaan Ali Wattoo</a> | <a
+                        href="/about#privacy">Privacy</a></span>
+            </div>
+        </div>
+    </footer>
+
+
+</div>
+
+
+{% endblock %}
