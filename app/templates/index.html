@@ -31,7 +31,6 @@
 
     {% for post in self_posts%}
 
-
     <div class="panel panel-info">
         <div class="panel-heading" style="overflow: auto">
             <img src="./static/default.png" class="profile-picture">
@@ -64,51 +63,52 @@
 
     </div>
 
+
     {%endfor%}
 
-</div>
+    <div class="col-lg-1"></div>
+
+    <div class="col-lg-5">
 
 
-<div class="col-lg-1"></div>
+        {% for post in posts%}
+        {% if post.user_id == current_user.id %}
+        <div class="panel panel-info">
+            {% else %}
+            <div class="panel panel-primary">
+                {% endif %}
+                <div class="panel-heading" style="overflow: auto">
+                    <img src="./static/default.png" class="profile-picture">
 
-<div class="col-lg-5">
+                    <a href="/profile/{{post.user.username}}" class="username panel-title">@{{post.user.username}}</a>
 
 
-    {% for post in posts%}
-    {% if post.user_id == current_user.id %}
-    <div class="panel panel-info">
-        {% else %}
-        <div class="panel panel-primary">
-            {% endif %}
-            <div class="panel-heading" style="overflow: auto">
-                <img src="./static/default.png" class="profile-picture">
+                </div>
+                <div class="panel-body">
+                    {{post.text|markdown}}
+                </div>
+                <div class="panel-footer">
+                    {% if current_user.id|string in post.liked_by %}
+                    <a id="{{post.id}}" class="unlike">
+                        Unlike
+                    </a><br/>
+                    {%else%}
+                    <a id="{{post.id}}" class="like">
+                        Like
+                    </a><br/>
+                    {%endif%}
+                    <div class="likes">{{post.likes}}</div>
+                    people like this.
 
-                <a href="/profile/{{post.user.username}}" class="username panel-title">@{{post.user.username}}</a>
 
+                </div>
 
             </div>
-            <div class="panel-body">
-                {{post.text|markdown}}
-            </div>
-            <div class="panel-footer">
-                {% if current_user.id|string in post.liked_by %}
-                <a id="{{post.id}}" class="unlike">
-                    Unlike
-                </a><br/>
-                {%else%}
-                <a id="{{post.id}}" class="like">
-                    Like
-                </a><br/>
-                {%endif%}
-                <div class="likes">{{post.likes}}</div>
-                people like this.
 
 
-            </div>
 
+            {%endfor%}
         </div>
-        {%endfor%}
     </div>
-
-
-    {% endblock %}
+</div>
+{% endblock %}

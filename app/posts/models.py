@@ -1,7 +1,10 @@
 from datetime import datetime
 from app import db
+from flask.ext.login import current_user
+from app.user.models import User
 
-__author__ = 'hassaanali'
+__author__ = 'hassaanaliw'
+
 
 class Posts(db.Model):
 

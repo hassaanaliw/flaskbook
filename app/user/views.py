@@ -1,6 +1,6 @@
 from flask import request, flash, url_for, redirect, render_template, abort, g, Blueprint, Response
 from app import db, app, login_manager
-from app.helpers import get_following_posts, get_self_posts
+from app.helpers import get_following_posts, get_self_posts, Messages
 from app.user.models import User
 from app.posts.models import Posts
 from flask.ext.login import login_user, logout_user, current_user, login_required
@@ -62,6 +62,7 @@ def follow(user_id):
     else:
         to_be_followed.followers += "%s," % user.id
 
+
     db.session.commit()
     return Response(status=200)
 
@@ -112,14 +113,14 @@ def login():
     remember_me = True
     registered_email = User.query.filter_by(email=email).first()
     if registered_email is None:
-        flash('Email/Password is Wrong. Please Try Again.', 'error')
+        flash(Messages.LOGIN_ERROR_MESSAGE, 'error')
         return redirect(url_for('.login'))
     if not registered_email.check_password(password):
-        flash('Email/Password is Wrong. Please Try Again.', 'error')
+        flash(Messages.LOGIN_ERROR_MESSAGE, 'error')
         return redirect(url_for('.login'))
 
     login_user(registered_email, remember=remember_me)
-    flash('Logged in successfully')
+    flash(Messages.LOGIN_SUCCESSFUL_MESSAGE)
     return redirect(request.args.get('next') or url_for('.index'))
 
 

@@ -14,7 +14,8 @@ class Messages():
     LOGIN_SUCCESSFUL_MESSAGE = "Logged in Successfully."
     REGISTER_EMAIL_EMPTY_MESSAGE = "The Email Field Cannot be Empty."
     REGISTER_PASSWORD_EMPTY_MESSAGE = "The Password Field Cannot be Empty."
-    REGISTER_EMAIL_EXISTS_MESSAGE = ""
+    REGISTER_EMAIL_EXISTS_MESSAGE = "An Account is already registered with this Email."
+    REGISTER_USERNAME_EXISTS_MESSAGE = "An Account is already registered with this Username."
 
 
 def get_self_posts(user_id):
@@ -39,4 +40,5 @@ def get_following_posts(user_id):
     posts = Posts.query.filter(Posts.user_id.in_(friends)).order_by(Posts.pub_date.desc()).all()
 
     return posts
+
 

@@ -11,7 +11,7 @@
 
         <div class="col-sm-3">
             <img title="profile image"
-                                  class="img-circle img-responsive profile-img" src="../static/default.png">
+                 class="img-circle img-responsive profile-img" src="../static/default.png">
 
         </div>
 
@@ -21,7 +21,7 @@
             {% else %}
             <button type="button" class="btn btn-success follow" id="{{user.id}}">Follow!</button>
             {% endif %}
-            <button type="button" class="btn btn-info">Send me a message</button>
+
             <br></div>
     </div>
     <br>
@@ -42,27 +42,6 @@
             </ul>
 
 
-            <ul class="list-group">
-                <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i>
-
-                </li>
-
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Following</strong></span> {% if user.following %}{{user.following.split(',')|length - 1}}{% endif %}
-                </li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Posts</strong></span> {{posts|length}}
-                </li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong
-                        class="">Followers</strong></span> 78
-                </li>
-            </ul>
-            <div class="panel panel-default">
-                <div class="panel-heading">Social Media</div>
-                <div class="panel-body"><i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i>
-                    <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i
-                            class="fa fa-google-plus fa-2x"></i>
-
-                </div>
-            </div>
         </div>
         <!--/col-3-->
         <div class="col-sm-9" contenteditable="false" style="">
