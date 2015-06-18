@@ -110,7 +110,9 @@ def login():
 
     email = request.form['email']
     password = request.form['password']
-    remember_me = True
+    remember_me = False
+    if 'remember_me' in request.form:
+        remember_me = True
     registered_email = User.query.filter_by(email=email).first()
     if registered_email is None:
         flash(Messages.LOGIN_ERROR_MESSAGE, 'error')
